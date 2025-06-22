@@ -1,18 +1,23 @@
-// src/app/api/sitemap/route.js
+import { NextResponse } from 'next/server';
 
-const BASE_URL = "https://mi-sitio.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mi-sitio.com';
+
+/** Simula rutas dinámicas de una base de datos / CMS */
+async function getDynamicRoutes() {
+  // p.ej. const posts = await fetch('https://cms.com/api/posts').then(r => r.json());
+  const posts = [{ slug: 'primer-post' }, { slug: 'segundo-post' }];
+  return posts.map(p => `/blog/${p.slug}`);
+}
 
 export async function GET() {
-  const urls = ["/", "/blog", "/contacto"]; // Agrega más rutas aquí
+  const staticRoutes = ['/', '/blog', '/contacto'];
+  const dynamicRoutes = await getDynamicRoutes();
+  const urls = [...staticRoutes, ...dynamicRoutes];
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${urls.map(url => `<url><loc>${BASE_URL}${url}</loc></url>`).join("")}
-    </urlset>`;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${urls.map(u => `<url><loc>${BASE_URL}${u}</loc></url>`).join('')}
+  </urlset>`;
 
-  return new Response(sitemap, {
-    headers: {
-      "Content-Type": "application/xml",
-    },
-  });
+  return new NextResponse(xml, { headers: { 'Content-Type': 'application/xml' } });
 }
