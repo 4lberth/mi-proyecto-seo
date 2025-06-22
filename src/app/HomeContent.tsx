@@ -3,7 +3,10 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const DynamicComponent = dynamic(() => import("../components/LargeComponent"), { ssr: false });
+const DynamicComponent = dynamic(
+  () => import("../components/LargeComponent"),
+  { ssr: false }
+);
 
 export default function HomeContent() {
   return (
@@ -18,7 +21,7 @@ export default function HomeContent() {
         priority
       />
 
-      {/* Componente Lazy Loading */}
+      {/* Componente Lazy Loading  */}
       <DynamicComponent />
     </>
   );

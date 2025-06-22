@@ -4,7 +4,8 @@ export const metadata = {
   keywords: "Next.js, SEO, optimización web",
   openGraph: {
     title: "Mi Sitio Optimizado",
-    description: "Descubre técnicas avanzadas para mejorar tu web con Next.js.",
+    description:
+      "Descubre técnicas avanzadas para mejorar tu web con Next.js.",
     images: ["/images/seo-image.png"],
     type: "website",
   },

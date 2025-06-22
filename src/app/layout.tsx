@@ -2,22 +2,19 @@ import type { Metadata } from "next";
 import { Inter, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+/* ── Fuentes optimizadas ─────────────────────────────────────── */
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+/* ── Metadata global ─────────────────────────────────────────── */
 export const metadata: Metadata = {
+  /*  👈  Next.js usará esta base para convertir rutas relativas
+          (p. ej. /images/seo-image.png) en URLs absolutas            */
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://mi-proyecto-seo-gamma.vercel.app"
+  ),
+
   title: "Mi Sitio Optimizado",
   description: "Aprende sobre optimización SEO y rendimiento en Next.js.",
   other: {
@@ -25,11 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
       <body
